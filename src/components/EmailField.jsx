@@ -14,8 +14,11 @@ var LeadCapture = React.createClass({
 			this.setState({valid: true, value: val});
 		}
 	},
+	clear: function() {
+		this.setState({valid: true, value: ""});
+	},
 	render: function() {
-		var formClass = this.state.valid ? "form-group" : "form-group is-focused has-warning"
+		var formClass = this.state.valid ? "form-group label-floating" : "form-group label-floating is-focused has-warning"
 		return (
 			<div className={formClass}>
 				<label htmlFor="inputEmail" className="col-md-2 control-label">Email</label>
@@ -23,9 +26,9 @@ var LeadCapture = React.createClass({
 					<input 
 						className="form-control" 
 						onChange={this.onChange}
-						id="inputEmail" 						
-						placeholder="Email" 
-						value={this.state.value} />					
+						id="inputEmail"
+						value={this.state.value} />		
+				<span className="help-block">We'll never share your email with anyone else.</span>				
 				</div>
 			</div>
 		);

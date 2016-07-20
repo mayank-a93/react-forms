@@ -7,16 +7,18 @@ var NameField = React.createClass({
 	onChange: function(e){
 		this.setState({value: e.target.value});
 	},
+	clear: function() {
+		this.setState({value: ""});
+	},
 	render: function() {
 		return (
-			<div className="form-group">
-				<label htmlFor={this.props.type} className="col-md-2 control-label">{this.props.type + " Name"}</label>
+			<div className="form-group label-floating">
+				<label htmlFor={this.props.type} className="col-md-2 control-label">Name</label>
 				<div className="col-md-10">
 					<input 
 						className="form-control" 
-						onChange={this.onChange}
 						id={this.props.type}						
-						placeholder={this.props.type + " Name"}
+						onChange={this.onChange}
 						value={this.state.value} />					
 				</div>
 			</div>

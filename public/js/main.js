@@ -20473,8 +20473,11 @@ var LeadCapture = React.createClass({
 			this.setState({ valid: true, value: val });
 		}
 	},
+	clear: function () {
+		this.setState({ valid: true, value: "" });
+	},
 	render: function () {
-		var formClass = this.state.valid ? "form-group" : "form-group is-focused has-warning";
+		var formClass = this.state.valid ? "form-group label-floating" : "form-group label-floating is-focused has-warning";
 		return React.createElement(
 			'div',
 			{ className: formClass },
@@ -20490,8 +20493,12 @@ var LeadCapture = React.createClass({
 					className: 'form-control',
 					onChange: this.onChange,
 					id: 'inputEmail',
-					placeholder: 'Email',
-					value: this.state.value })
+					value: this.state.value }),
+				React.createElement(
+					'span',
+					{ className: 'help-block' },
+					'We\'ll never share your email with anyone else.'
+				)
 			)
 		);
 	}
@@ -20507,7 +20514,18 @@ var NameField = require('./NameField.jsx');
 var LeadCapture = React.createClass({
 	displayName: 'LeadCapture',
 
-	onSubmit: function (e) {},
+	onSubmit: function (e) {
+		e.preventDefault();
+		if (!this.refs.fieldEmail.state.valid || this.refs.fieldEmail.state.value.length == 0) {
+			console.log("Nope");
+		} else {
+			alert("Email : " + this.refs.fieldEmail.state.value + "\nName : " + this.refs.fieldName.state.value + "\nsdf: " + this.refs.fieldEmail.state.value.length);
+		}
+	},
+	onClear: function () {
+		this.refs.fieldEmail.clear();
+		this.refs.fieldName.clear();
+	},
 	render: function () {
 		return React.createElement(
 			'div',
@@ -20526,8 +20544,8 @@ var LeadCapture = React.createClass({
 							null,
 							'Lead Capture'
 						),
-						React.createElement(NameField, { type: 'First' }),
-						React.createElement(EmailField, null),
+						React.createElement(NameField, { type: 'First', ref: 'fieldName' }),
+						React.createElement(EmailField, { ref: 'fieldEmail' }),
 						React.createElement(
 							'div',
 							{ className: 'form-group' },
@@ -20536,12 +20554,12 @@ var LeadCapture = React.createClass({
 								{ className: 'col-md-10 col-md-offset-2' },
 								React.createElement(
 									'button',
-									{ type: 'button', className: 'btn btn-default' },
+									{ className: 'btn btn-default', onClick: this.onClear },
 									'Cancel'
 								),
 								React.createElement(
 									'button',
-									{ type: 'submit', className: 'btn btn-primary', onClick: this.onSubmit },
+									{ className: 'btn btn-primary', onClick: this.onSubmit },
 									'Submit'
 								)
 							)
@@ -20567,23 +20585,25 @@ var NameField = React.createClass({
 	onChange: function (e) {
 		this.setState({ value: e.target.value });
 	},
+	clear: function () {
+		this.setState({ value: "" });
+	},
 	render: function () {
 		return React.createElement(
 			"div",
-			{ className: "form-group" },
+			{ className: "form-group label-floating" },
 			React.createElement(
 				"label",
 				{ htmlFor: this.props.type, className: "col-md-2 control-label" },
-				this.props.type + " Name"
+				"Name"
 			),
 			React.createElement(
 				"div",
 				{ className: "col-md-10" },
 				React.createElement("input", {
 					className: "form-control",
-					onChange: this.onChange,
 					id: this.props.type,
-					placeholder: this.props.type + " Name",
+					onChange: this.onChange,
 					value: this.state.value })
 			)
 		);
