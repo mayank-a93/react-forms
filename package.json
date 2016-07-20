@@ -1,0 +1,27 @@
+{
+  "name": "react-forms",
+  "version": "1.0.0",
+  "description": "Sample react app with forms",
+  "main": "index.js",
+  "scripts": {
+    "start": "watchify src/main.jsx -v -t [ babelify --presets [ react ] ] -o public/js/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mayank-a93/react-forms"
+  },
+  "author": "Mayank Agarwal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mayank-a93/react-forms/issues"
+  },
+  "homepage": "https://github.com/mayank-a93/react-forms#readme",
+  "dependencies": {
+    "babel-preset-react": "^6.11.1",
+    "babelify": "^7.3.0",
+    "email-validator": "^1.0.4",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
+    "watchify": "^3.7.0"
+  }
+}
